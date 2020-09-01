@@ -1,6 +1,8 @@
 # LeeConsole
  A simple console demo of an algorithm Lee
  
+# [Latest Release](https://github.com/NASQDAF/LeeConsole/releases/download/0.1-beta.2/Source.exe)
+ 
 # Controls: keyboard's arrows
  
  
