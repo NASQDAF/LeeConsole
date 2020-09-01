@@ -5,12 +5,11 @@
 #include<string>
 #include<iomanip>
 #include<Windows.h>
-using namespace std;
 #pragma region Global Variable
 
 int const mapX = 20;
 int const mapY = 10;
-int freq = 30, tofreq = 1; //Отношение freq к tofreq(частота выпадания)
+int freq = 30, tofreq = 1; // отношение freq к tofreq(частота выпадания)
 char way = '+';
 char Vmap[mapY][mapX];
 
@@ -28,6 +27,7 @@ int px[LmapX * LmapY * 2 / 3], py[LmapX * LmapY * 2 / 3];
 int len;
 int grid[LmapY][LmapX];
 //for lee
+
 bool isnear = false; //for Pcheck
 #pragma endregion
 
@@ -41,13 +41,13 @@ public:
 
 	int x, y, atk = 2;
 	void ntfc() {
-		cout << "hi" << endl;
+		std::cout << "hi" << std::endl;
 	}
 	void abil(int x){
 		mana -= x;
 	}
 	void swdmg(int x) {
-		cout << x << endl;
+		std::cout << x << std::endl;
 		hlth -= x;
 	}
 }s;
@@ -62,7 +62,7 @@ body::body(void){
 }
 
 
-class enemy { //здоровье+, мана+, атака, защита, скорость+, радиус видения, (занимаемое поле, )
+class enemy {
 private:
 	int hp = 10,
 		mp = 2,
@@ -75,7 +75,7 @@ public:
 	int x, y;
 	void step() {
 		lee(x, y, s.x, s.y); 
-		swap(Vmap[py[1]][px[1]], Vmap[y][x]);
+		std::swap(Vmap[py[1]][px[1]], Vmap[y][x]);
 	}
 	void atk(int s) {
 		hp -= (s-def);
@@ -106,8 +106,8 @@ void smap(char map[mapY][mapX]) {
 	std::system("cls");
 	for (int i = 0; i < mapY; i++) {
 		for (int j = 0; j < mapX; j++)
-			cout << setw(1) << map[i][j];
-		cout << endl;
+			std::cout << std::setw(1) << map[i][j];
+		std::cout << std::endl;
 	}
 }
 void deploy(int grid[mapY][mapX]) {
@@ -164,7 +164,7 @@ bool lee(int ax, int ay, int bx, int by)
 			{
 				x = x + dx[k];
 				y = y + dy[k];
-				cout << x << ":" << y << " ";
+				std::cout << x << ":" << y << " ";
 				break;
 			}
 		}
@@ -213,6 +213,7 @@ void pathp(char smap[mapY][mapX]){
 }*/
 
 void info() {
+	using namespace std;
 	cout << "________________________________\n";
 	cout << "|" << setw(15) << "Coordinats X:" << setw(2) << s.y + 1 << setw(4) << "Y:" << setw(2) << s.x +1 << setw(9) <<"|\n";
 	cout << "|" << setw(9) << "Health: " <<setw(2) << s.hlth << setw(3)<< sizeof(arren) << setw(10) << "|\n";
@@ -230,38 +231,38 @@ int main() {
 	map[s.x][s.y] = char(64);
 	path(map, Vmap);
 	smap(Vmap);
-	char a = 'x'; //Ловец
-	int n = 0; //Переключатель
+	char a = 'x'; //ловец
+	int n = 0; // переключатель
 	while (a != '\r') {	
 		
 		if (GetAsyncKeyState(VK_UP))
 			if (Vmap[s.y - 1][s.x] == ' ' && s.y - 1 >= 0 || Vmap[s.y - 1][s.x] == way || Pcheck(Vmap[s.y - 1][s.x], 65, 91) && s.y - 1 >= 0) {
 				keybd_event(VK_UP, 0, KEYEVENTF_KEYUP, 0);
 				//if (isnear)
-					swap(Vmap[s.y][s.x], Vmap[s.y--][s.x]); n++;
+					std::swap(Vmap[s.y][s.x], Vmap[s.y--][s.x]); n++;
 			}
 
 		if (GetAsyncKeyState(VK_RIGHT))
 			if (Vmap[s.y][s.x + 1] == ' ' &&  s.x + 1 < mapX || Vmap[s.y][s.x + 1] == way || Pcheck(Vmap[s.y][s.x + 1], 65, 91) && s.x + 1 < mapX) {
 				keybd_event(VK_RIGHT, 0, KEYEVENTF_KEYUP, 0);
-				swap(Vmap[s.y][s.x], Vmap[s.y][s.x++]);	n++;
+				std::swap(Vmap[s.y][s.x], Vmap[s.y][s.x++]);	n++;
 			}
 		
 		if (GetAsyncKeyState(VK_LEFT))
 			if (Vmap[s.y][s.x - 1] == ' ' && s.x - 1 >= 0 || Vmap[s.y][s.x - 1] == way || Pcheck(Vmap[s.y][s.x - 1], 65, 91) && s.x - 1 >= 0) {
 				keybd_event(VK_LEFT, 0, KEYEVENTF_KEYUP, 0);
-				swap(Vmap[s.y][s.x], Vmap[s.y][s.x--]); n++;
+				std::swap(Vmap[s.y][s.x], Vmap[s.y][s.x--]); n++;
 			}
 		
 		if (GetAsyncKeyState(VK_DOWN))
 			if (Vmap[s.y + 1][s.x] == ' '&& s.y + 1 < mapY || Vmap[s.y + 1][s.x] == way || Pcheck(Vmap[s.y + 1][s.x], 65, 91) && s.y + 1 < mapY) {
 				keybd_event(VK_DOWN, 0, KEYEVENTF_KEYUP, 0);
-				swap(Vmap[s.y][s.x], Vmap[s.y++][s.x]); n++;
+				std::swap(Vmap[s.y][s.x], Vmap[s.y++][s.x]); n++;
 			}
 		if (GetAsyncKeyState(VK_SPACE))
 			if (Vmap[s.y + 1][s.x] == ' ' || Vmap[s.y + 1][s.x] == way) {
 				keybd_event(VK_SPACE, 0, KEYEVENTF_KEYUP, 0);
-				swap(Vmap[s.y][s.x], Vmap[s.y++][s.x]); n++;
+				std::swap(Vmap[s.y][s.x], Vmap[s.y++][s.x]); n++;
 			}
 		
 		if (GetAsyncKeyState(VK_RETURN)){keybd_event(VK_DOWN, 0, KEYEVENTF_KEYUP, 0);break;}
