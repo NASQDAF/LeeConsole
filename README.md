@@ -1,5 +1,5 @@
 # LeeConsole
- A simple console demo of an algorithm Lee
+ Console demo of Lee's algorithm
  
 # [Latest Release](https://github.com/NASQDAF/LeeConsole/releases/download/0.1-beta.2/Source.exe)
  
